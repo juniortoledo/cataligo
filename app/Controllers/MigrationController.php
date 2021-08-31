@@ -48,6 +48,33 @@ class MigrationController extends Conn
 
       echo '<b>perfil</b> criada <br>';
     }
+
+    // dados do perfil da loja
+    if(!$this->table('produtos')) {
+      $this->db()->schema()->create('produtos', function(CreateTable $table) {
+        $table->integer('id')->primary()->autoincrement();
+        $table->integer('id_user');
+        $table->string('image');
+        $table->string('name');
+        $table->string('sobre');
+        $table->string('categoria');
+        $table->string('valor');
+        $table->boolean('status');
+      });
+
+      echo '<b>produtos</b> criada <br>';
+    }
+
+    // dados do perfil da loja
+    if(!$this->table('categorias')) {
+      $this->db()->schema()->create('categorias', function(CreateTable $table) {
+        $table->integer('id')->primary()->autoincrement();
+        $table->integer('id_user');
+        $table->string('name');
+      });
+
+      echo '<b>categorias</b> criada <br>';
+    }
   }
 
   /**

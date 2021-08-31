@@ -19,7 +19,7 @@ class PerfilController extends View
   public function home()
   {
     $perfil = $this->crud->read('perfil', 'id_user', $_SESSION['id']);
-    echo $this->view->render('path/home', ['perfil' => $perfil]);
+    echo $this->view->render('painel/perfil/editar', ['perfil' => $perfil]);
   }
 
   /**
@@ -43,7 +43,7 @@ class PerfilController extends View
       'status' => 0
     ], 'perfil');
 
-    if($res) header('location:'.URL.'pedidos');
+    if ($res) header('location:' . URL . 'pedidos');
   }
 
   /**
@@ -51,9 +51,32 @@ class PerfilController extends View
    */
   public function editData($data)
   {
-    $res = $this->crud->update($data, 'Nome_da_tabela', 'id_da_coluna');
+    $this->crud->update([
+      'name' => $data['name'],
+      'sobre' => $data['sobre'],
+      'estado' => $data['estado'],
+      'cidade' => $data['cidade'],
+      'bairro' => $data['bairro'],
+      'rua' => $data['rua'],
+      'complemento' => $data['complemento'],
+      'numero' => $data['numero']
+    ], 'perfil', $data['id']);
 
-    if($res) header('location:'.URL.'Extenção_da_URL');
+    header('location:' . URL . 'perfil');
+  }
+
+  /**
+   * editar imagem de perfil da loja
+   */
+  public function editImage($data)
+  {
+    $upload = new UploadController();
+
+    $this->crud->update([
+      'image' => $upload->file($_FILES['image'])
+    ], 'perfil', $data['id']);
+
+    header('location:' . URL . 'perfil');
   }
 
   /**
@@ -73,7 +96,6 @@ class PerfilController extends View
   {
     $res = $this->crud->delete('Nome_da_tabela', 'id_da_coluna');
 
-    if($res) header('location:'.URL.'Extenção_da_URL');
+    if ($res) header('location:' . URL . 'Extenção_da_URL');
   }
 }
-    

@@ -54,11 +54,11 @@ class CrudModel extends Conn
   /** 
    * método para deletar informações
    */
-  public function delete($table, $id)
+  public function delete($table, $column, $value)
   {
     $res = $this->db()
     ->from($table)
-    ->where('id')->is($id)
+    ->where($column)->is($value)
     ->delete();
 
     return $res;

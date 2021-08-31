@@ -21,8 +21,26 @@ class Routing
     $this->router->post('/login', 'AuthController:readUser');
     $this->router->post('/register', 'AuthController:addUser');
 
+    // catalogo
+    $this->router->get('/categorias', $this->auth('CategoriaController:home'));
+    $this->router->get('/categorias/deletar/{id}', $this->auth('CategoriaController:deletar'));
+    $this->router->get('/categorias/editar/{id}', $this->auth('CategoriaController:editar'));
+    $this->router->post('/categorias', $this->auth('CategoriaController:addData'));
+    $this->router->post('/categorias/deletar', $this->auth('CategoriaController:delData'));
+    $this->router->post('/categorias/editar', $this->auth('CategoriaController:editData'));
+
+    // produtos
+    $this->router->get('/produtos', $this->auth('ProdutosController:home'));
+    $this->router->get('/produtos/editar/{id}', $this->auth('ProdutosController:editar'));
+    $this->router->post('/produtos', $this->auth('ProdutosController:addData'));
+    $this->router->get('/produtos/deletar/{id}', $this->auth('ProdutosController:delData'));
+    $this->router->post('/produtos/editar', $this->auth('ProdutosController:editData'));
+
     // perfil
+    $this->router->get('/perfil', $this->auth('PerfilController:home'));
     $this->router->post('/perfil', 'PerfilController:addData');
+    $this->router->post('/perfil/editar', 'PerfilController:editData');
+    $this->router->post('/perfil/editar/imagem', 'PerfilController:editImage');
 
     // pedidos
     $this->router->get('/pedidos', $this->auth('PedidosController:home'));
@@ -36,10 +54,10 @@ class Routing
     $this->router->get('/migration', 'MigrationController:create');
 
     // sair
-    $this->router->get('/sair', function() {
+    $this->router->get('/sair', function () {
       session_destroy();
 
-      header('location:'. URL);
+      header('location:' . URL);
     });
 
     //create controller

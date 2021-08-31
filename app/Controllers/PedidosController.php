@@ -22,7 +22,7 @@ class PedidosController extends View
     if ($this->crud->read('perfil', 'id_user', $_SESSION['id'])) {
       echo $this->view->render('painel/pedidos/home', ['perfil' => $perfil]);
     } else {
-      echo $this->view->render('painel/perfil/home', ['perfil' => $perfil]);
+      echo $this->view->render('painel/perfil/novo', ['perfil' => $perfil]);
     }
   }
 
